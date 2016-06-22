@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.08.00">
+    <object class="EncodableAsset" id="{3f77f896-22e9-4b50-a654-feebd0a1df7f}">
+        <property name="assetPath">
+            <value>SFX/Paddle/V1/</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{05b061ef-65ae-4ea4-b998-e4110c0f1288}</destination>
+        </relationship>
+    </object>
+</objects>

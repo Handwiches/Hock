@@ -1,0 +1,6 @@
+{20d297cf-3b4a-4170-b791-b395e9b0df39} event:/MX_Downtempo
+{f73b3181-d4f8-4912-acc2-4ee9c6892b8b} event:/SFX_Hit
+{2ad24432-67a5-48da-9f2d-ad9ce5f85c15} event:/SFX_Puck_Trail
+{39ffe05b-2af7-4e00-9d6d-d96d89962e96} bus:/
+{d32d3470-8b9b-4b71-b097-cdcd0635bc43} bus:/Reverb
+{66609bf0-37f1-4eb1-b98e-1f10b8fa24db} bank:/Master Bank
