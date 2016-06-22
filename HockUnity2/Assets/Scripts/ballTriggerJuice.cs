@@ -4,14 +4,20 @@ using FMOD.Studio;
 
 public class ballTriggerJuice : MonoBehaviour {
 
+    
     public float scaleSpeed = 0.6f;
     public float initialScale = 0.7f;
     float currentScale = 1.0f;
     public float scaleUpHits = 1.5f;
 
-    public Transform ball;
+    public Transform ball;  //needs a rigidbody2d
+    Rigidbody2D ballRBody;
+    public float distanceFromWall = 1000.0f;
     bool hitting = false; //stops unecessary functions from running
 
+    //TIME SLOWING
+    public float timeSlowFraction = 0.4f;
+    public float timeSlowLength = 0.125f;
 
     public float hitCounter = 0.0f;
     float timeBetweenHits = 1.2f;   //if the ball is dead for this much time, the hit counter is reset
@@ -25,6 +31,7 @@ public class ballTriggerJuice : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        ballRBody = ball.GetComponent<Rigidbody2D>();
         initialScale = ball.localScale.z;
 
         //rollingEv = FMODUnity.RuntimeManage.CreateInstance(rolling);
@@ -41,7 +48,20 @@ public class ballTriggerJuice : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        ball.localScale = new Vector3(Mathf.Lerp(currentScale, initialScale, Time.deltaTime * scaleSpeed), Mathf.Lerp(currentScale, initialScale, Time.deltaTime * scaleSpeed), 0.6f);
+        //Problem: Raycast casted inside of Ball colliders registered the balls. Solution: Masking the raycast:
+        int layerMask = 1 << 10; // Bit shift the index of the layer (8) to get a bit mask that only collides with layer (10)
+        // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
+        layerMask = ~layerMask;
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, (ballRBody.velocity), 100.0f, layerMask);
+        if (hit.collider.tag == "Wall") //.tag == "Wall" //!= null
+        {
+            print("??????????");
+            //distanceFromWall = Mathf.Abs(Vector2.Distance(hit.point, new Vector2(transform.position.x, transform.position.y))); //absolute returns always positive
+            distanceFromWall = hit.distance;
+        }
+
+            ball.localScale = new Vector3(Mathf.Lerp(currentScale, initialScale, Time.deltaTime * scaleSpeed), Mathf.Lerp(currentScale, initialScale, Time.deltaTime * scaleSpeed), 0.6f);
         currentScale = Mathf.Lerp(currentScale, initialScale, Time.deltaTime * scaleSpeed);
 
         if (hitting == false)
@@ -63,8 +83,8 @@ public class ballTriggerJuice : MonoBehaviour {
 
     public IEnumerator timeSlow()
     {
-        Time.timeScale = 0.5f;
-        yield return new WaitForSeconds(0.1f);
+        Time.timeScale = timeSlowFraction;
+        yield return new WaitForSeconds(timeSlowLength);
         Time.timeScale = 1.0f;
     }
 
