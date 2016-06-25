@@ -29,6 +29,16 @@ public class ballTriggerJuice : MonoBehaviour {
     ParameterInstance velHit; //eventInstance
     ParameterInstance timesHit2;
 
+    [FMODUnity.EventRef]
+    public string rampToWallEvent = "event:/SFX_RampToWall";
+    EventInstance sfxRampToWall;
+    ParameterInstance distFromWall; //eventInstance
+
+    [FMODUnity.EventRef]
+    public string wallHitEvent = "event:/SFX_WallHit";
+    EventInstance sfxWallHit;
+    ParameterInstance wallHit; //eventInstance
+
     // Use this for initialization
     void Start () {
         ballRBody = ball.GetComponent<Rigidbody2D>();
@@ -38,11 +48,17 @@ public class ballTriggerJuice : MonoBehaviour {
         //rollingEv.getParameter ("speed", out rollingParam);
         //rollingEv.start();
         
+        //AUDIO
         sfxHit = FMODUnity.RuntimeManager.CreateInstance(inputSound);
         sfxHit.getParameter("velocityHit", out velHit);
-        sfxHit.getParameter("timesHit ", out timesHit2);
-        //sfxHit.start();
-        
+        sfxHit.getParameter("timesHit", out timesHit2);
+        //Distance from wall
+        sfxRampToWall = FMODUnity.RuntimeManager.CreateInstance(rampToWallEvent);
+        sfxRampToWall.getParameter("distancefromWall", out distFromWall);
+        distFromWall.setValue(50.0f);
+        sfxRampToWall.start();
+        //Wall hit
+        sfxWallHit = FMODUnity.RuntimeManager.CreateInstance(wallHitEvent);
 
     }
 	
@@ -56,9 +72,16 @@ public class ballTriggerJuice : MonoBehaviour {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, (ballRBody.velocity), 100.0f, layerMask);
         if (hit.collider.tag == "Wall") //.tag == "Wall" //!= null
         {
-            print("??????????");
+            //sfxRampToWall.start();
+            //print("??????????");
             //distanceFromWall = Mathf.Abs(Vector2.Distance(hit.point, new Vector2(transform.position.x, transform.position.y))); //absolute returns always positive
-            distanceFromWall = hit.distance;
+            distanceFromWall = (hit.distance/4);
+            distFromWall.setValue(distanceFromWall);
+        }
+        else
+        {
+            distanceFromWall = 500.0f;
+            distFromWall.setValue(distanceFromWall);
         }
 
             ball.localScale = new Vector3(Mathf.Lerp(currentScale, initialScale, Time.deltaTime * scaleSpeed), Mathf.Lerp(currentScale, initialScale, Time.deltaTime * scaleSpeed), 0.6f);
@@ -91,7 +114,7 @@ public class ballTriggerJuice : MonoBehaviour {
 
     public void OnTriggerEnter2D(Collider2D col)
     {
-        
+
         //print("wall");
         if (col.tag == "Paddle" && hitting == false)
         {
@@ -106,12 +129,18 @@ public class ballTriggerJuice : MonoBehaviour {
             StartCoroutine(clearHitting());
             float hitStrength1 = col.gameObject.GetComponent<bumper>().gameController.rStickPower; //0 to 1
             float hitCounter1 = hitCounter;
-            
+
             velHit.setValue(hitStrength1); //0 to 1
             timesHit2.setValue(hitCounter); //0++, 1++, etc
-            
+
             sfxHit.start();
-            
+            sfxRampToWall.start();
+        }
+
+        if (col.tag == "Wall" && hitting == false)
+        {
+            sfxWallHit.start();
+            sfxRampToWall.start();
         }
     }
 

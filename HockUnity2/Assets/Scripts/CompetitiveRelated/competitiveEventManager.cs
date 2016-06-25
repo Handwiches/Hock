@@ -17,7 +17,7 @@ public class competitiveEventManager : MonoBehaviour {
 
     //AUDIO ELEMENTS
     [FMODUnity.EventRef]
-    public string musicSound = "event:/MX_Downtempo";
+    public string musicSound = "event:/MX_80's Upbeat_InGame";
     FMOD.Studio.EventInstance mxManager;                //eventInstance
     FMOD.Studio.ParameterInstance gamePlaying;
     FMOD.Studio.ParameterInstance pointsScored;
@@ -33,22 +33,15 @@ public class competitiveEventManager : MonoBehaviour {
 
     void Awake()
     {
-        //Audio
-        mxManager = FMODUnity.RuntimeManager.CreateInstance(musicSound);
-        mxManager.getParameter("gamePlaying", out gamePlaying);
-        mxManager.getParameter("pointsScored", out pointsScored);
-        //mxManager.start();
-
-        sfxMatchTimer = FMODUnity.RuntimeManager.CreateInstance(matchTimer);
-        sfxMatchTimer.start();
-
-        sfxGoalScore = FMODUnity.RuntimeManager.CreateInstance(goalScore);
-        //AUDIO END
-
-        gamePlaying.setValue(1.0f);
-
         //Referencing
         gameManager = gameObject.GetComponent<competitiveGameManager>();
+
+        //Audio
+        mxManager = FMODUnity.RuntimeManager.CreateInstance(musicSound);
+        mxManager.start();
+        sfxMatchTimer = FMODUnity.RuntimeManager.CreateInstance(matchTimer);
+        sfxMatchTimer.start();
+        sfxGoalScore = FMODUnity.RuntimeManager.CreateInstance(goalScore);
     }
     
     void Start () {
@@ -77,7 +70,7 @@ public class competitiveEventManager : MonoBehaviour {
         }
 
         sfxGoalScore.start();
-        pointsScored.setValue(teamPointCount); //for audio
+        //pointsScored.setValue(teamPointCount); //for audio
         print("team point count: " + teamPointCount);
 
         yield return new WaitForSeconds(0.2f);
@@ -91,6 +84,7 @@ public class competitiveEventManager : MonoBehaviour {
 
     public IEnumerator CoCountdownToGo()
     {
+        print("countdown");
         gameManager.ball.SetActive(false);
         uiAnimation.SetTrigger("321");
         yield return new WaitForSeconds(1.0f);
