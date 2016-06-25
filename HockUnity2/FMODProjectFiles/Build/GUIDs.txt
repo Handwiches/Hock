@@ -1,0 +1,28 @@
+{79a8dcd3-0c89-4083-b41a-a700309b352b} event:/AMB_KeyboardClicking
+{a6d1cf8a-09d0-4739-9681-3a18fb1fbb77} event:/AMB_MenuRoomTone_1
+{33035302-2287-4f48-802e-37006c1c8dfd} event:/MX_80's Upbeat_InGame
+{27e9adc8-15b1-4b87-b32d-91ee2c89aaf5} event:/MX_ChillMenu
+{20d297cf-3b4a-4170-b791-b395e9b0df39} event:/MX_Downtempo
+{2f5c6f72-d8e4-44b2-9c49-05a8817cfa57} event:/MX_MenuMusic_Jazz
+{72d2c35a-0743-4cae-8ae7-2fbcc6993e96} event:/MX_UpbeatMenu
+{47fcdb2a-bef8-4047-a113-ea4865c2e1a8} event:/SFX_Check
+{8e73d76c-1507-4744-8d66-5c1469b6195a} event:/SFX_GoalScore
+{f73b3181-d4f8-4912-acc2-4ee9c6892b8b} event:/SFX_Hit
+{b0118d58-c328-4161-b51b-afe7ba7d32de} event:/SFX_MatchTimer
+{dd26f091-1de5-4679-8676-76a1af28b96b} event:/SFX_RampToWall
+{976bef6b-d820-4ab2-bab1-585ba64df3bd} event:/SFX_WallHit
+{aa60ad3a-9dce-4f4c-9cc9-d76e00c13821} event:/UI_ComputerStop
+{fdd3d960-f913-4a95-8f91-17c418bf5722} event:/UI_Hover
+{9433013f-f61d-42d1-bed5-b8dcf49a5e7d} event:/UI_MovingComputer
+{35b1135e-24a7-409c-aa7d-8635d4210946} event:/UI_Select
+{39ffe05b-2af7-4e00-9d6d-d96d89962e96} bus:/
+{c61756f3-7e41-48c6-b074-b8108341e56d} bus:/AMB
+{d48baa8e-2538-43aa-9dff-11d00d79c675} bus:/MX
+{27fc1ba9-0b39-496a-8269-312a43c35dfa} bus:/SFX
+{b73bc42c-9e79-471e-9ba0-f15d8e539337} bus:/SFX/SFX_RamptoWall
+{ffdbb14f-ff72-4209-ba5f-df4fedbe731f} bus:/UI
+{d32d3470-8b9b-4b71-b097-cdcd0635bc43} bus:/Reverb
+{c3d9f857-016e-49f6-9e9b-079faadbefcf} snapshot:/SFX_WallHit
+{33bb2d88-aa75-43e4-912e-81a2eccb6802} snapshot:/SFX_WalHit_Blending
+{8d427f9c-b887-47ed-88d0-8baae08a7393} snapshot:/MusicDuck
+{66609bf0-37f1-4eb1-b98e-1f10b8fa24db} bank:/Master Bank
